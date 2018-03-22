@@ -1,0 +1,49 @@
+{
+	"__ver": "status-monitor:3",
+	"_id": "WGyzuBweTrSpK6mifzjpxQ",
+	"abstract": false,
+	"class_name": "NoonianInstance",
+	"definition": {
+		"auth": {
+			"type": "object"
+		},
+		"last_status": {
+			"enum": "InstanceStatus",
+			"type": "enum"
+		},
+		"last_status_check": {
+			"type": "datetime"
+		},
+		"name": {
+			"type": "string"
+		},
+		"note": {
+			"type": "text"
+		},
+		"package_summary": {
+			"type": "object"
+		},
+		"query_result": {
+			"type": "object"
+		},
+		"url": {
+			"type": "url"
+		},
+		"user_summary": {
+			"type": "composite",
+			"type_desc_map": {
+				"last_access_time": {
+					"type": "datetime"
+				},
+				"last_access_user": {
+					"type": "string"
+				},
+				"users_per_role": {
+					"type": "object"
+				}
+			}
+		}
+	},
+	"doc": "\n @property {object} auth \n @property {enum} last_status \n @property {datetime} last_status_check \n @property {string} name \n @property {text} note \n @property {composite[]} package_summary \n @property {object} query_result \n @property {url} url \n @property {composite} user_summary \n",
+	"system": false
+}

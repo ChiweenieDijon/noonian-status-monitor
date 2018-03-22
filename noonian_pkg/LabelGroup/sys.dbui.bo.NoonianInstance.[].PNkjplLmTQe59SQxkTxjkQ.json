@@ -1,0 +1,22 @@
+{
+	"__ver": "status-monitor:1",
+	"_id": "PNkjplLmTQe59SQxkTxjkQ",
+	"key": "sys.dbui.bo.NoonianInstance",
+	"language": {
+		"_disp": "English",
+		"_id": "-9vPfv2lEeSFtiimx_V4dw",
+		"code": "en"
+	},
+	"system": false,
+	"value": {
+		"auth": "Auth",
+		"last_status": "Last Status",
+		"last_status_check": "Last Status Check",
+		"name": "Name",
+		"note": "Note",
+		"package_summary": "Package Summary",
+		"query_result": "Query Result",
+		"url": "Url",
+		"user_summary": "User Summary"
+	}
+}
