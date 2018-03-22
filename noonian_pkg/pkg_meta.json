@@ -1,7 +1,37 @@
 {
-	"__ver": "sys-auto:1",
+	"__ver": "sys-auto:1|status-monitor:2",
 	"_id": "G0SXqC1OEeiCEwAaTWcOdQ",
+	"build_config": {
+		"exclude": [
+			"NoonianInstance",
+			"User"
+		]
+	},
+	"enable_building": false,
 	"key": "app.status-monitor",
 	"major_version": 0,
-	"minor_version": 0
+	"manifest": {
+		"BusinessObjectDef": {
+			"WGyzuBweTrSpK6mifzjpxQ": "status-monitor:3"
+		},
+		"Config": {
+			"j04Ug70OQUuVoG4sCoIF_w": "status-monitor:1",
+			"kk76KLjDRvqvuhPMarxFwA": "status-monitor:3"
+		},
+		"LabelGroup": {
+			"PNkjplLmTQe59SQxkTxjkQ": "status-monitor:1"
+		},
+		"Role": {
+			"pu-2mpW-TpWjZNXTfhz5sA": "status-monitor:1"
+		},
+		"WebService": {
+			"U_lPwJx0ST6Gs9cT2g_xdw": "status-monitor:8"
+		}
+	},
+	"minor_version": 1,
+	"package_file": {
+		"attachment_id": "kjTbl9gmQOS6vyisqlik4Q",
+		"filename": "app.status-monitor.0.1.json",
+		"type": "application/json"
+	}
 }

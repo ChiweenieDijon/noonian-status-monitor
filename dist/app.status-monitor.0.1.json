@@ -1,0 +1,178 @@
+{
+"metadata":{
+	"_id": "G0SXqC1OEeiCEwAaTWcOdQ",
+	"build_config": {
+		"exclude": [
+			"NoonianInstance",
+			"User"
+		]
+	},
+	"enable_building": false,
+	"key": "app.status-monitor",
+	"major_version": 0,
+	"manifest": {
+		"BusinessObjectDef": {
+			"WGyzuBweTrSpK6mifzjpxQ": "status-monitor:3"
+		},
+		"Config": {
+			"j04Ug70OQUuVoG4sCoIF_w": "status-monitor:1",
+			"kk76KLjDRvqvuhPMarxFwA": "status-monitor:3"
+		},
+		"LabelGroup": {
+			"PNkjplLmTQe59SQxkTxjkQ": "status-monitor:1"
+		},
+		"Role": {
+			"pu-2mpW-TpWjZNXTfhz5sA": "status-monitor:1"
+		},
+		"WebService": {
+			"U_lPwJx0ST6Gs9cT2g_xdw": "status-monitor:8"
+		}
+	},
+	"minor_version": 1
+},
+"business_objects":[
+{
+	"__disp": "NoonianInstance",
+	"__ver": "status-monitor:3",
+	"_class": "BusinessObjectDef",
+	"_id": "WGyzuBweTrSpK6mifzjpxQ",
+	"abstract": false,
+	"class_name": "NoonianInstance",
+	"definition": {
+		"auth": {
+			"type": "object"
+		},
+		"last_status": {
+			"enum": "InstanceStatus",
+			"type": "enum"
+		},
+		"last_status_check": {
+			"type": "datetime"
+		},
+		"name": {
+			"type": "string"
+		},
+		"note": {
+			"type": "text"
+		},
+		"package_summary": {
+			"type": "object"
+		},
+		"query_result": {
+			"type": "object"
+		},
+		"url": {
+			"type": "url"
+		},
+		"user_summary": {
+			"type": "composite",
+			"type_desc_map": {
+				"last_access_time": {
+					"type": "datetime"
+				},
+				"last_access_user": {
+					"type": "string"
+				},
+				"users_per_role": {
+					"type": "object"
+				}
+			}
+		}
+	},
+	"doc": "\n @property {object} auth \n @property {enum} last_status \n @property {datetime} last_status_check \n @property {string} name \n @property {text} note \n @property {composite[]} package_summary \n @property {object} query_result \n @property {url} url \n @property {composite} user_summary \n",
+	"system": false
+},
+{
+	"__ver": "status-monitor:1",
+	"_class": "Config",
+	"_id": "j04Ug70OQUuVoG4sCoIF_w",
+	"key": "sys.dbui.perspective.default.NoonianInstance#user_summary",
+	"system": false,
+	"value": {
+		"edit": {
+			"layout": [
+				"users_per_role",
+				"last_access_time",
+				"last_access_user"
+			]
+		}
+	}
+},
+{
+	"__ver": "status-monitor:3",
+	"_class": "Config",
+	"_id": "kk76KLjDRvqvuhPMarxFwA",
+	"allow_customize": false,
+	"key": "sys.dbui.perspective.default.NoonianInstance",
+	"rolespec": [
+	],
+	"system": false,
+	"value": {
+		"edit": {
+			"layout": [
+				[
+					"name",
+					"url"
+				],
+				[
+					"last_status",
+					"last_status_check"
+				],
+				"note",
+				"auth",
+				"user_summary",
+				"package_summary",
+				"query_result"
+			]
+		},
+		"list": {
+			"fields": [
+				"name",
+				"note",
+				"last_status",
+				"last_status_check"
+			]
+		}
+	}
+},
+{
+	"__ver": "status-monitor:1",
+	"_class": "LabelGroup",
+	"_id": "PNkjplLmTQe59SQxkTxjkQ",
+	"key": "sys.dbui.bo.NoonianInstance",
+	"language": {
+		"_disp": "English",
+		"_id": "-9vPfv2lEeSFtiimx_V4dw",
+		"code": "en"
+	},
+	"system": false,
+	"value": {
+		"auth": "Auth",
+		"last_status": "Last Status",
+		"last_status_check": "Last Status Check",
+		"name": "Name",
+		"note": "Note",
+		"package_summary": "Package Summary",
+		"query_result": "Query Result",
+		"url": "Url",
+		"user_summary": "User Summary"
+	}
+},
+{
+	"__ver": "status-monitor:1",
+	"_class": "Role",
+	"_id": "pu-2mpW-TpWjZNXTfhz5sA",
+	"name": "ROLE_SYSTEM_STATUS"
+},
+{
+	"__disp": "/sys/getSummary",
+	"__ver": "status-monitor:8",
+	"_class": "WebService",
+	"_id": "U_lPwJx0ST6Gs9cT2g_xdw",
+	"doc": "",
+	"function": "function (db, Q, _) {\n    const moment = require('moment');\n    \n    return Q.all([\n        db.User.find({},{name:1,roles:1,last_login:1}).lean().exec(),\n        db.BusinessObjectPackage.find({}).lean().exec()\n    ])\n    .then(function([userList, bopList]) {\n        const roleCounts = {};\n        const userSummary = {users_per_role:roleCounts};\n        \n        var latestAccessTime = moment('1960-01-01');\n        var lastAccessUser = null;\n        \n        for(var u of userList) {\n            for(var roleRef of u.roles) {\n                let r = roleRef._disp;\n                roleCounts[r] ? roleCounts[r]++ : roleCounts[r] = 1;\n            }\n            if(u.last_login) {\n                let lastLogin = moment(u.last_login);\n                if(lastLogin.isAfter(latestAccessTime)) {\n                    latestAccessTime = lastLogin;\n                    userSummary.last_access_user = u.name;\n                }\n            }\n            \n        }\n        \n        const packageSummary = {};\n        for(var p of bopList) {\n            packageSummary[p.key] = (p.major_version||0)+'.'+(p.minor_version||0);\n        }\n        \n        return {\n            user_summary:userSummary,\n            package_summary:packageSummary\n        }\n    });\n}",
+	"path": "/sys/getSummary",
+	"rolespec": [
+		"pu-2mpW-TpWjZNXTfhz5sA"
+	]
+}]}
