@@ -1,0 +1,15 @@
+{
+	"__ver": "status-monitor:1",
+	"_id": "j04Ug70OQUuVoG4sCoIF_w",
+	"key": "sys.dbui.perspective.default.NoonianInstance#user_summary",
+	"system": false,
+	"value": {
+		"edit": {
+			"layout": [
+				"users_per_role",
+				"last_access_time",
+				"last_access_user"
+			]
+		}
+	}
+}

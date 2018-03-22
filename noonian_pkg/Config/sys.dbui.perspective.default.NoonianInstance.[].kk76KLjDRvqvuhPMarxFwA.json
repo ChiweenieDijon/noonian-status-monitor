@@ -1,0 +1,36 @@
+{
+	"__ver": "status-monitor:3",
+	"_id": "kk76KLjDRvqvuhPMarxFwA",
+	"allow_customize": false,
+	"key": "sys.dbui.perspective.default.NoonianInstance",
+	"rolespec": [
+	],
+	"system": false,
+	"value": {
+		"edit": {
+			"layout": [
+				[
+					"name",
+					"url"
+				],
+				[
+					"last_status",
+					"last_status_check"
+				],
+				"note",
+				"auth",
+				"user_summary",
+				"package_summary",
+				"query_result"
+			]
+		},
+		"list": {
+			"fields": [
+				"name",
+				"note",
+				"last_status",
+				"last_status_check"
+			]
+		}
+	}
+}
